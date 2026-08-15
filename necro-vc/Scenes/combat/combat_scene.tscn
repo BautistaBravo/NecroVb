@@ -1,3 +1,80 @@
 [gd_scene format=3 uid="uid://dwdwcyfp13u4l"]
 
-[node name="CombatScene" type="Node2D" unique_id=1425083375]
+[ext_resource type="Script" uid="uid://cx62a0k2f3p6f" path="res://Scenes/combat/combat_controller.gd" id="1_controller"]
+
+[node name="CombatScene" type="Node2D"]
+script = ExtResource("1_controller")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 6
+
+[node name="LogLabel" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 300.0
+grow_vertical = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Fase de Combate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -70.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="MoveButton" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+text = "Mover"
+
+[node name="AttackButton" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+text = "Atacar"
+
+[node name="NextButton" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+text = "Siguiente"

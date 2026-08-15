@@ -297,12 +297,40 @@ func _enemy_ai_turn(enemy: CombatEntity, target: CombatEntity) -> void:
 	var min_r = enemy.get_min_range()
 	var max_r = enemy.get_max_range()
 	
-	if dist > max_r or dist < min_r:
-		var diff = target.grid_pos - enemy.grid_pos
-		var step = Vector2i(clampi(diff.x, -1, 1), clampi(diff.y, -1, 1))
-		var new_pos = enemy.grid_pos + step
-		if _is_in_bounds(new_pos):
-			_handle_movement_or_collision(enemy, new_pos)
+	var is_ranged = max_r > 1
+	var moved = false
+
+	if is_ranged:
+		# Lógica de Rango: Si está cuerpo a cuerpo (dist = 1), huye.
+		if dist == 1:
+			var diff = enemy.grid_pos - target.grid_pos # Hacia el lado opuesto
+			var step = Vector2i(clampi(diff.x, -1, 1), clampi(diff.y, -1, 1))
+
+			# Si diff es 0 (ej están ocupando el mismo tile por error), movemos aleatoriamente
+			if step == Vector2i.ZERO:
+				step = Vector2i(1, 0) if randf() > 0.5 else Vector2i(0, 1)
+
+			var new_pos = enemy.grid_pos + step
+			if _is_in_bounds(new_pos):
+				_handle_movement_or_collision(enemy, new_pos)
+				moved = true
+		elif dist > max_r:
+			# Si está fuera de rango máximo, no hace nada (según las reglas pedidas: "no se muevan a menos que...")
+			# Solo se quedan quietos si no están en rango.
+			# Si quisieras que se acerquen para disparar, aquí haríamos un paso. Pero la instrucción fue:
+			# "los de rango no se muevan a menos que tengan a un esqueleto al lado"
+			pass
+	else:
+		# Lógica de Melee: Se acerca si no está en rango.
+		if dist > max_r or dist < min_r:
+			var diff = target.grid_pos - enemy.grid_pos
+			var step = Vector2i(clampi(diff.x, -1, 1), clampi(diff.y, -1, 1))
+			var new_pos = enemy.grid_pos + step
+			if _is_in_bounds(new_pos):
+				_handle_movement_or_collision(enemy, new_pos)
+				moved = true
+
+	if moved:
 		dist = _get_grid_distance(enemy.grid_pos, target.grid_pos)
 		
 	if enemy.current_hp > 0 and target.current_hp > 0 and dist >= min_r and dist <= max_r:
@@ -385,9 +413,10 @@ func _check_battle_outcome() -> bool:
 	return false
 
 func _return_to_lair() -> void:
+	state.current_day += 1
 	GameStateDAO.save_state(state)
 	get_tree().create_timer(2.5).timeout.connect(func():
-		get_tree().change_scene_to_file("res://scenes/guarida/lair_scene.tscn")
+		get_tree().change_scene_to_file("res://Scenes/guarida/guarida.tscn")
 	)
 
 func _update_log(msg: String) -> void:
