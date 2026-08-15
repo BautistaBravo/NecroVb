@@ -23,6 +23,12 @@ func _setup_grid_buttons() -> void:
 			var pos := Vector2i(x, y)
 			var slot_btn := Button.new()
 			slot_btn.custom_minimum_size = Vector2(64, 64)
+
+			if x < 3:
+				slot_btn.modulate = Color(1.0, 0.5, 0.5) # Rojo (Zona enemiga)
+			else:
+				slot_btn.modulate = Color(0.5, 1.0, 0.5) # Verde (Zona jugador)
+
 			_update_slot_text(slot_btn, pos)
 			slot_btn.pressed.connect(func(): _on_slot_clicked(slot_btn, pos))
 			grid_container.add_child(slot_btn)
@@ -32,7 +38,10 @@ func _update_slot_text(btn: Button, pos: Vector2i) -> void:
 		var inst: SkeletonUnitInstance = state.formation_grid[pos]
 		btn.text = "%s\nNv.%d" % [inst.type_data.name, inst.level]
 	else:
-		btn.text = "[ %d,%d ]" % [pos.x, pos.y]
+		if pos.x < 3:
+			btn.text = "Enemigo"
+		else:
+			btn.text = "[ %d,%d ]" % [pos.x, pos.y]
 
 func _render_available_units() -> void:
 	available_units_list.clear()
@@ -42,6 +51,10 @@ func _render_available_units() -> void:
 	available_units_list.item_selected.connect(func(idx): selected_unit_index = idx)
 
 func _on_slot_clicked(btn: Button, pos: Vector2i) -> void:
+	if pos.x < 3:
+		print("DEBUG: No puedes colocar unidades en la zona enemiga (x < 3).")
+		return
+
 	if selected_unit_index >= 0 and selected_unit_index < state.active_units.size():
 		var inst: SkeletonUnitInstance = state.active_units[selected_unit_index]
 		state.set_formation_slot(pos, inst)
@@ -51,4 +64,4 @@ func _on_slot_clicked(btn: Button, pos: Vector2i) -> void:
 
 func _on_back_pressed() -> void:
 	GameStateDAO.save_state(state)
-	get_tree().change_scene_to_file("res://scenes/guarida/lair_scene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/guarida/guarida.tscn")
