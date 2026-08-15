@@ -63,12 +63,13 @@ class CombatEntity:
 @export var day_encounters: Array[DayEncounterData] = []
 @export var default_enemy_pool: Array[EnemyData] = []
 
-@onready var log_label: Label = $CanvasLayer/LogLabel
-@onready var current_unit_label: Label = $CanvasLayer/CurrentUnitLabel
-@onready var move_btn: Button = $CanvasLayer/CommandPanel/MoveButton
-@onready var attack_btn: Button = $CanvasLayer/CommandPanel/AttackButton
-@onready var next_or_execute_btn: Button = $CanvasLayer/CommandPanel/NextOrExecuteButton
-@onready var grid_container: GridContainer = $CanvasLayer/GridPanel/GridContainer
+@onready var log_label: RichTextLabel = $CanvasLayer/Panel/LogLabel
+@onready var current_unit_label: Label = $CanvasLayer/Panel/CurrentUnitLabel
+@onready var move_btn: Button = $CanvasLayer/Panel/HBoxContainer/MoveButton
+@onready var attack_btn: Button = $CanvasLayer/Panel/HBoxContainer/AttackButton
+@onready var next_or_execute_btn: Button = $CanvasLayer/Panel/HBoxContainer/NextOrExecuteButton
+@onready var grid_container: GridContainer = $CanvasLayer/Panel/GridContainer
+@onready var phase_label: Label = $CanvasLayer/Panel/PhaseLabel
 
 var state: GameStateModel
 var entities: Array[CombatEntity] = []

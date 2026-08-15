@@ -52,6 +52,20 @@ text = "Fase de Combate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CurrentUnitLabel" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 60.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Unidad Actual"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel"]
 layout_mode = 1
 anchors_preset = 7
@@ -75,6 +89,6 @@ text = "Mover"
 layout_mode = 2
 text = "Atacar"
 
-[node name="NextButton" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+[node name="NextOrExecuteButton" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
 layout_mode = 2
 text = "Siguiente"
