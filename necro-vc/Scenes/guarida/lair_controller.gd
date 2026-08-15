@@ -68,11 +68,12 @@ func _spawn_skeleton_view(instance: SkeletonUnitInstance) -> void:
 
 	# Calcular posición dentro del ReferenceRect o posición central por defecto
 	var spawn_pos := Vector2(400, 300)
+	var bounds_rect := Rect2()
 	if spawn_area_rect and spawn_area_rect.size.x > 0 and spawn_area_rect.size.y > 0:
-		var rect = spawn_area_rect.get_global_rect()
+		bounds_rect = spawn_area_rect.get_global_rect()
 		spawn_pos = Vector2(
-			randf_range(rect.position.x, rect.position.x + rect.size.x),
-			randf_range(rect.position.y, rect.position.y + rect.size.y)
+			randf_range(bounds_rect.position.x, bounds_rect.position.x + bounds_rect.size.x),
+			randf_range(bounds_rect.position.y, bounds_rect.position.y + bounds_rect.size.y)
 		)
 
 	view.global_position = spawn_pos
@@ -80,7 +81,7 @@ func _spawn_skeleton_view(instance: SkeletonUnitInstance) -> void:
 
 	# Agregar al árbol primero y luego llamar setup
 	entities_container.add_child(view)
-	view.setup(instance)
+	view.setup(instance, bounds_rect)
 
 func _on_skeleton_clicked(clicked_view: SkeletonView) -> void:
 	if selected_view == null:
@@ -129,7 +130,8 @@ func _merge_skeletons(view_a: SkeletonView, view_b: SkeletonView) -> void:
 	view_b.queue_free()
 
 	view_a.global_position = mid_pos
-	view_a.setup(evolved_instance)
+	# Pasamos los boundaries de vuelta usando los existentes en view_a
+	view_a.setup(evolved_instance, view_a.movement_bounds)
 	view_a.set_selected(false)
 	selected_view = null
 

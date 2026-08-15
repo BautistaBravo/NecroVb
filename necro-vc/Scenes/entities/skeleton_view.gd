@@ -10,14 +10,47 @@ signal clicked(view: SkeletonView)
 
 var instance: SkeletonUnitInstance
 var is_selected: bool = false
+var movement_bounds: Rect2
+var move_timer: Timer
 
 func _ready() -> void:
 	input_pickable = true
 	_refresh_visuals()
 	set_selected(false)
 
-func setup(new_instance: SkeletonUnitInstance, current_hp: int = -1) -> void:
+	move_timer = Timer.new()
+	move_timer.one_shot = true
+	move_timer.timeout.connect(_on_move_timer_timeout)
+	add_child(move_timer)
+	_start_random_timer()
+
+func _start_random_timer() -> void:
+	move_timer.start(randf_range(4.0, 5.0))
+
+func _on_move_timer_timeout() -> void:
+	_start_random_timer() # Restart the timer for the next cycle
+
+	# Random chance to move or stay still (e.g., 50% chance)
+	if randf() > 0.5:
+		return
+
+	# Move to a random position nearby (e.g., within 50 pixels radius)
+	var random_offset = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+	var target_pos = global_position + random_offset
+
+	# Clamp to boundaries if they are set
+	if movement_bounds.size.x > 0 and movement_bounds.size.y > 0:
+		target_pos.x = clamp(target_pos.x, movement_bounds.position.x, movement_bounds.position.x + movement_bounds.size.x)
+		target_pos.y = clamp(target_pos.y, movement_bounds.position.y, movement_bounds.position.y + movement_bounds.size.y)
+
+	var tween = create_tween()
+	# Random duration for the slow movement between 1 and 2 seconds
+	var move_duration = randf_range(1.0, 2.0)
+	tween.tween_property(self, "global_position", target_pos, move_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+func setup(new_instance: SkeletonUnitInstance, bounds: Rect2 = Rect2(), current_hp: int = -1) -> void:
 	instance = new_instance
+	movement_bounds = bounds
 	if is_inside_tree():
 		_refresh_visuals(current_hp)
 
