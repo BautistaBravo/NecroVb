@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DayEncounterData" format=3 uid="uid://day2encounter"]
+
+[ext_resource type="Resource" uid="uid://peasant001" path="res://Resources/enemies/peasant_t1.tres" id="1_peasant"]
+[ext_resource type="Resource" uid="uid://archer001" path="res://Resources/enemies/archer_t1.tres" id="2_archer"]
+[ext_resource type="Script" uid="uid://ci5djew8pvpnd" path="res://core/models/day_encounter_data.gd" id="3_script"]
+
+[resource]
+script = ExtResource("3_script")
+day_number = 2
+completion_soul_bonus = 35
+enemies = Array[Resource]([ExtResource("1_peasant"), ExtResource("1_peasant"), ExtResource("2_archer")])
+spawn_positions = Array[Vector2i]([])

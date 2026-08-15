@@ -84,6 +84,14 @@ func _ready() -> void:
 	move_btn.pressed.connect(_on_move_btn_pressed)
 	attack_btn.pressed.connect(_on_attack_btn_pressed)
 	next_or_execute_btn.pressed.connect(_on_next_or_execute_pressed)
+
+	if day_encounters.is_empty():
+		day_encounters.append(load("res://Resources/encounters/day1_encounter.tres"))
+		day_encounters.append(load("res://Resources/encounters/day2_encounter.tres"))
+		day_encounters.append(load("res://Resources/encounters/day3_encounter.tres"))
+	if default_enemy_pool.is_empty():
+		default_enemy_pool.append(load("res://Resources/enemies/peasant_t1.tres"))
+		default_enemy_pool.append(load("res://Resources/enemies/archer_t1.tres"))
 	_setup_grid_ui()
 	_initialize_combat()
 

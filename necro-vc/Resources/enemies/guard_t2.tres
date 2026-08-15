@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://guard001"]
+
+[ext_resource type="Script" uid="uid://cq15dnh7k3j3h" path="res://core/models/enemy_data.gd" id="1_enemy"]
+
+[resource]
+script = ExtResource("1_enemy")
+id = "guard_t2"
+name = "Guardia"
+max_hp = 30
+attack_power = 7
+speed = 6
+attack_type = 0
+min_attack_range = 1
+max_attack_range = 1
+move_range = 2
+soul_reward = 35
+exp_reward = 50

@@ -144,7 +144,7 @@ func _on_next_day_pressed() -> void:
 	for inst in state.active_units:
 		income += inst.type_data.souls_per_day
 	state.souls += income
-	state.current_day += 1
+	# Eliminado state.current_day += 1; se incrementará después de la batalla.
 	GameStateDAO.save_state(state)
 	get_tree().change_scene_to_file("res://Scenes/combat/combat_scene.tscn")
 
