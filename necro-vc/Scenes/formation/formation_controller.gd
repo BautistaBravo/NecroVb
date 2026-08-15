@@ -15,6 +15,7 @@ func _ready() -> void:
 	back_btn.pressed.connect(_on_back_pressed)
 	available_units_list.item_selected.connect(func(idx): selected_unit_index = idx)
 	_setup_grid_buttons()
+	_populate_available_units()
 	_refresh_ui()
 
 func _setup_grid_buttons() -> void:
@@ -26,6 +27,7 @@ func _setup_grid_buttons() -> void:
 			slot_btn.custom_minimum_size = Vector2(64, 64)
 			slot_btn.expand_icon = true
 			slot_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			slot_btn.add_theme_constant_override("icon_max_width", 64)
 
 			if x < 3:
 				slot_btn.modulate = Color(1.0, 0.5, 0.5) # Rojo (Zona enemiga)
@@ -37,7 +39,7 @@ func _setup_grid_buttons() -> void:
 
 func _refresh_ui() -> void:
 	_refresh_grid_buttons()
-	_render_available_units()
+	_update_available_units()
 
 func _refresh_grid_buttons() -> void:
 	var idx = 0
@@ -58,32 +60,51 @@ func _refresh_grid_buttons() -> void:
 					btn.text = "[ %d,%d ]" % [pos.x, pos.y]
 			idx += 1
 
-func _render_available_units() -> void:
+func _populate_available_units() -> void:
 	available_units_list.clear()
+	for i in range(state.active_units.size()):
+		var inst: SkeletonUnitInstance = state.active_units[i]
+		var base_text = "%s (T%d, Nv.%d)" % [inst.type_data.name, inst.type_data.tier, inst.level]
+		available_units_list.add_item(base_text)
+		if inst.type_data.sprite_texture:
+			available_units_list.set_item_icon(i, inst.type_data.sprite_texture)
+
+func _update_available_units() -> void:
+	if available_units_list.item_count != state.active_units.size():
+		_populate_available_units()
+
 	var placed_units = state.formation_grid.values()
 
 	for i in range(state.active_units.size()):
 		var inst: SkeletonUnitInstance = state.active_units[i]
-		available_units_list.add_item("%s (T%d, Nv.%d)" % [inst.type_data.name, inst.type_data.tier, inst.level])
+		var base_text = "%s (T%d, Nv.%d)" % [inst.type_data.name, inst.type_data.tier, inst.level]
 
 		if inst in placed_units:
+			available_units_list.set_item_text(i, base_text + " (Colocado)")
 			available_units_list.set_item_disabled(i, true)
 			available_units_list.set_item_custom_fg_color(i, Color(0.5, 0.5, 0.5))
-
-	# Reset selected item since list cleared, unless they click again
-	selected_unit_index = -1
+		else:
+			available_units_list.set_item_text(i, base_text)
+			available_units_list.set_item_disabled(i, false)
+			available_units_list.set_item_custom_fg_color(i, Color(1, 1, 1))
 
 func _on_slot_clicked(pos: Vector2i) -> void:
 	if pos.x < 3:
 		print("DEBUG: No puedes colocar unidades en la zona enemiga (x < 3).")
 		return
 
-	# Clicking an occupied slot when nothing valid is selected removes it
+	# Si cliqueamos una celda y no hay unidad válida seleccionada en la lista, quitamos la de la celda
 	if selected_unit_index < 0 or selected_unit_index >= state.active_units.size() or available_units_list.is_item_disabled(selected_unit_index):
+		if state.formation_grid.has(pos):
+			print("DEBUG: Removiendo unidad de la posición ", pos)
 		state.set_formation_slot(pos, null)
 	else:
 		var inst: SkeletonUnitInstance = state.active_units[selected_unit_index]
+		print("DEBUG: Colocando unidad ", inst.type_data.name, " en la posición ", pos)
 		state.set_formation_slot(pos, inst)
+		# Deseleccionamos automáticamente después de colocar
+		available_units_list.deselect_all()
+		selected_unit_index = -1
 
 	_refresh_ui()
 
