@@ -5,5 +5,8 @@
 
 [resource]
 script = ExtResource("1_liakr")
+id = "skeleton_t2"
+name = "Esqueleto Guerrero"
+tier = 2
 next_evolution = ExtResource("1_eers5")
 metadata/_custom_type_script = "uid://b1ot4lkyys5ip"

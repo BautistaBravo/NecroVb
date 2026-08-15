@@ -93,17 +93,32 @@ func _on_skeleton_clicked(clicked_view: SkeletonView) -> void:
 		if selected_view.instance.type_data.can_merge_with(clicked_view.instance.type_data):
 			_merge_skeletons(selected_view, clicked_view)
 		else:
+			print("DEBUG: Falló la fusión. Tipos incompatibles. Intento de fusionar: Tier %d (%s) con Tier %d (%s)" % [
+				selected_view.instance.type_data.tier,
+				selected_view.instance.type_data.name,
+				clicked_view.instance.type_data.tier,
+				clicked_view.instance.type_data.name
+			])
 			selected_view.set_selected(false)
 			selected_view = clicked_view
 			selected_view.set_selected(true)
+
 func _merge_skeletons(view_a: SkeletonView, view_b: SkeletonView) -> void:
 	var inst_a = view_a.instance
 	var inst_b = view_b.instance
 	var evolved_type: SkeletonData = inst_a.type_data.get_next_tier()
 
-	
 	var new_level: int = maxi(inst_a.level, inst_b.level)
 	var evolved_instance = SkeletonUnitInstance.new(evolved_type, new_level)
+
+	print("DEBUG: Fusión exitosa. Fusionado Tier %d (%s) con Tier %d (%s). Resultado: Tier %d (%s)" % [
+		inst_a.type_data.tier,
+		inst_a.type_data.name,
+		inst_b.type_data.tier,
+		inst_b.type_data.name,
+		evolved_type.tier,
+		evolved_type.name
+	])
 
 	state.remove_unit(inst_a)
 	state.remove_unit(inst_b)

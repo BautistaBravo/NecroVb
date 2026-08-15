@@ -50,7 +50,7 @@ func get_revive_cost() -> int:
 func can_merge_with(other: SkeletonData) -> bool:
 	if not other:
 		return false
-	return self.tier == other.tier and self.next_evolution != null
+	return self.id == other.id and self.tier == other.tier and self.next_evolution != null
 
 func get_next_tier() -> SkeletonData:
 	return next_evolution

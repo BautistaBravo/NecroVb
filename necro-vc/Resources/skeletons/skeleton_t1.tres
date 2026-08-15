@@ -6,6 +6,9 @@
 
 [resource]
 script = ExtResource("1_2uqlo")
+id = "skeleton_t1"
+name = "Esqueleto Básico"
+tier = 1
 sprite_texture = ExtResource("3_g1qsp")
 next_evolution = ExtResource("1_mnxqw")
 metadata/_custom_type_script = "uid://b1ot4lkyys5ip"
