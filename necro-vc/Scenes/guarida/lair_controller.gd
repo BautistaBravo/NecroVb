@@ -2,8 +2,8 @@ class_name LairController
 extends Node2D
 
 @export var default_skeleton: SkeletonData
-@export var spawn_area_rect: ReferenceRect
-@export var skeleton_view_scene: PackedScene
+@onready var spawn_area_rect: ReferenceRect = $SpawnAreaRect
+var skeleton_view_scene: PackedScene = preload("res://Scenes/entities/skeleton_view.tscn")
 
 @onready var souls_label: Label = $CanvasLayer/HUD/SoulsLabel
 @onready var units_label: Label = $CanvasLayer/HUD/UnitsLabel
