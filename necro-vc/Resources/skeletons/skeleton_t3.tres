@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SkeletonData" format=3 uid="uid://e2kgnib5hgym"]
+
+[ext_resource type="Script" uid="uid://b1ot4lkyys5ip" path="res://core/models/skeleton_data.gd" id="1_1mvh5"]
+
+[resource]
+script = ExtResource("1_1mvh5")
+metadata/_custom_type_script = "uid://b1ot4lkyys5ip"

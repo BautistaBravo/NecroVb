@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkeletonData" format=3 uid="uid://dpahe4po62yiv"]
+
+[ext_resource type="Script" uid="uid://b1ot4lkyys5ip" path="res://core/models/skeleton_data.gd" id="1_2uqlo"]
+[ext_resource type="Resource" uid="uid://b1maqyiefw0fi" path="res://Resources/skeletons/skeleton_t2.tres" id="1_mnxqw"]
+[ext_resource type="Texture2D" uid="uid://bsigofhq35el7" path="res://Assets/SpriteTestSkelly/Skelly.png" id="3_g1qsp"]
+
+[resource]
+script = ExtResource("1_2uqlo")
+sprite_texture = ExtResource("3_g1qsp")
+next_evolution = ExtResource("1_mnxqw")
+metadata/_custom_type_script = "uid://b1ot4lkyys5ip"

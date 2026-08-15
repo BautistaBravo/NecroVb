@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dnq7a3xv7l1xk"]
+
+[ext_resource type="Script" uid="uid://chngmeu1c27y4" path="res://Scenes/entities/skeleton_view.gd" id="1_5d3dd"]
+[ext_resource type="Texture2D" uid="uid://bsigofhq35el7" path="res://Assets/SpriteTestSkelly/Skelly.png" id="2_70dee"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+
+[node name="SkeletonView" type="Node2D" unique_id=812300303]
+script = ExtResource("1_5d3dd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=687157372]
+position = Vector2(78, 35)
+texture = ExtResource("2_70dee")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=582012258]
+position = Vector2(78, 35)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="HPBar" type="ProgressBar" parent="." unique_id=280439335]
+offset_left = 49.0
+offset_top = -3.0
+offset_right = 112.0
+offset_bottom = 24.0
+
+[node name="LevelLabel" type="Label" parent="." unique_id=271169248]
+offset_left = 37.0
+offset_top = 23.0
+offset_right = 77.0
+offset_bottom = 46.0

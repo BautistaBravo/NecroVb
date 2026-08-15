@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dtjbycbu7j"]
+
+[ext_resource type="Script" uid="uid://dq321yg3qfguk" path="res://Scenes/guarida/lair_controller.gd" id="1_8ujtu"]
+
+[node name="Guarida" type="Node2D" unique_id=485809369]
+script = ExtResource("1_8ujtu")
+
+[node name="Button" type="Button" parent="." unique_id=1845453180]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "LLEGOOOOOO A GUARIDA
+"

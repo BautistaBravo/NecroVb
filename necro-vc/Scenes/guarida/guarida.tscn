@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dtjbycbu7j"]
+
+[ext_resource type="Script" uid="uid://dq321yg3qfguk" path="res://Scenes/guarida/lair_controller.gd" id="1_8ujtu"]
+[ext_resource type="Resource" uid="uid://dpahe4po62yiv" path="res://Resources/skeletons/skeleton_t1.tres" id="2_au6f1"]
+
+[node name="Guarida" type="Node2D" unique_id=485809369]
+script = ExtResource("1_8ujtu")
+default_skeleton = ExtResource("2_au6f1")
+
+[node name="Button" type="Button" parent="." unique_id=1845453180]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "LLEGOOOOOO A GUARIDA
+"
+
+[node name="EntitiesContainer" type="Node2D" parent="." unique_id=1605907367]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2054319787]
+
+[node name="HUD" type="Panel" parent="CanvasLayer" unique_id=246954634]
+offset_right = 1148.0
+offset_bottom = 644.0
+
+[node name="SoulsLabel" type="Label" parent="CanvasLayer/HUD" unique_id=1077432595]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="UnitsLabel" type="Label" parent="CanvasLayer/HUD" unique_id=1606754540]
+layout_mode = 0
+offset_top = 130.0
+offset_right = 40.0
+offset_bottom = 153.0
+
+[node name="DayLabel" type="Label" parent="CanvasLayer/HUD" unique_id=1422813513]
+layout_mode = 0
+offset_left = 321.0
+offset_top = 12.0
+offset_right = 704.0
+offset_bottom = 35.0
+
+[node name="FormationButton" type="Button" parent="CanvasLayer/HUD" unique_id=1710177959]
+layout_mode = 0
+offset_left = 903.0
+offset_top = 539.0
+offset_right = 1113.0
+offset_bottom = 632.0
+
+[node name="SummonButton" type="Button" parent="CanvasLayer/HUD" unique_id=729126214]
+layout_mode = 0
+offset_left = 740.0
+offset_top = 538.0
+offset_right = 865.0
+offset_bottom = 619.0
+
+[node name="NextDayButton" type="Button" parent="CanvasLayer/HUD" unique_id=1791332955]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 388.0
+offset_right = 597.0
+offset_bottom = 409.0
+
+[node name="GraveyardPanel" type="Panel" parent="CanvasLayer" unique_id=1258557852]
+offset_left = 5.0
+offset_top = 77.0
+offset_right = 45.0
+offset_bottom = 117.0
+
+[node name="FallenList" type="VBoxContainer" parent="CanvasLayer/GraveyardPanel" unique_id=38223238]
+layout_mode = 0
+offset_left = 939.0
+offset_top = 287.0
+offset_right = 979.0
+offset_bottom = 327.0
+
+[node name="SpawnAreaRect" type="ReferenceRect" parent="." unique_id=483400465]
+offset_left = 227.0
+offset_top = 174.0
+offset_right = 888.0
+offset_bottom = 373.0
